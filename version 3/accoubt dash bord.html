@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Account Website</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Reset default browser styles */
+        body, h1, h2, p, ul, li {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Body styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Header styles */
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Main styles */
+        main {
+            padding: 20px;
+        }
+
+        /* Account Balance styles */
+        #account-balance {
+            margin-bottom: 30px;
+        }
+
+        #account-balance h2 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        #balance {
+            font-size: 24px;
+        }
+
+        /* Recent Transactions styles */
+        #recent-transactions {
+            margin-bottom: 30px;
+        }
+
+        #recent-transactions h2 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        #transaction-list {
+            list-style-type: none;
+        }
+
+        #transaction-list li {
+            margin-bottom: 5px;
+        }
+
+        /* Other Account Details styles */
+        #other-details {
+            margin-bottom: 30px;
+        }
+
+        #other-details h2 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        /* Footer styles */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Welcome to Your Bank Account Dashboard</h1>
+    </header>
+
+    <!-- Main content -->
+    <main>
+        <!-- Account Balance -->
+        <section id="account-balance">
+            <h2>Account Balance</h2>
+            <p id="balance">Rs 1000.00</p>
+        </section>
+        
+        <!-- Recent Transactions -->
+        <section id="recent-transactions">
+            <h2>Recent Transactions</h2>
+            <ul id="transaction-list" class="list-group">
+                
+                <!-- Add more transaction items dynamically using JavaScript -->
+            </ul>
+            
+            <button id="load-more-btn" class="btn btn-primary btn-block mt-4"> Load More</button>
+        </section>
+        
+        <!-- Other Account Details -->
+        <section id="other-details">
+            <h2>Other Account Details</h2>
+            <p>Account Type: <span id="account-type">Savings</span></p>
+            <!-- Add more account details here -->
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Saving Bank. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+    const transactionList = $('#transaction-list');
+    const loadMoreBtn = $('#load-more-btn');
+
+    let currentPage = 1;
+    const pageSize = 2; // Number of transactions per page
+
+    // Function to fetch transactions from backend API
+    function fetchTransactions(page) {
+        // Simulated data for demonstration
+        const transactions = [
+            { id: 1, description: 'Transaction 1', amount: 50.00 },
+            { id: 2, description: 'Transaction 2', amount: 25.00 },
+            { id: 3, description: 'Transaction 3', amount: 75.00 },
+            { id: 4, description: 'Transaction 4', amount: 30.00 },
+            { id: 5, description: 'Transaction 5', amount: 40.00 },
+            // Add more transactions here...
+        ];
+
+        const startIndex = (page - 1) * pageSize;
+        const endIndex = startIndex + pageSize;
+        const transactionsToShow = transactions.slice(startIndex, endIndex);
+
+        displayTransactions(transactionsToShow);
+    }
+
+   
+        
+    // Function to display transactions on the page
+function displayTransactions(transactions) {
+    transactions.forEach(transaction => {
+        const transactionItem = $('<a href="#" class="list-group-item list-group-item-action"></a>');
+        transactionItem.text(`${transaction.description} - ₹${transaction.amount.toFixed(2)}`);
+        transactionList.append(transactionItem);
+    });
+}
+
+
+    // Load initial transactions
+    fetchTransactions(currentPage);
+
+    // Load more transactions when the button is clicked
+    loadMoreBtn.on('click', function() {
+        currentPage++;
+        fetchTransactions(currentPage);
+    });
+});
+
+    </script>
+</body>
+</html>
+
